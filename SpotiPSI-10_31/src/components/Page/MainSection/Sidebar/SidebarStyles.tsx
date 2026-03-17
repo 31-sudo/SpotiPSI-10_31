@@ -4,8 +4,8 @@ const useStyles = makeStyles()(() => ({
     mainSectionDiv: {
         backgroundColor: '#121212',
         borderLeft: '1px solid #B3B3B3',
-        height: '82vh',
-        width: '13vw',
+        height: '100%',
+        width: '13%',
         display: 'flex',
         flexDirection: 'column'
     },
