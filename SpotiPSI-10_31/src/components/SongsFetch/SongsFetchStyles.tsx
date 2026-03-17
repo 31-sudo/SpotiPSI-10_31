@@ -2,10 +2,8 @@ import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
     songs: {
-        direction: 'ltr',
-        height: '82vh',
-        width: '87%',
-        overflowY: 'scroll'
+        display: 'flex',
+        flexDirection: 'column'
     }
 }));
 
