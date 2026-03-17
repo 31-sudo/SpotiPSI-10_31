@@ -2,10 +2,11 @@ import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
     mainSectionDiv: {
-        height: '81vh',
-        width: '100%',
+        backgroundColor: '#121212',
+        height: '82vh',
+        width: '100vw',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center'
     }
 }));

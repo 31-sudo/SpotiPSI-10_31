@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+import MainSection from './MainSection/MainSection';
 import useStyles from './PageStyles';
-import Sidebar from './MainSection/Sidebar/Sidebar';
 
 const Page: React.FC = () => {
     const { classes } = useStyles();
@@ -10,8 +10,8 @@ const Page: React.FC = () => {
     return (
         <div className={classes.screen}>
             <Header />
+            <MainSection />
             <Footer />
-            <Sidebar />
         </div>
     )
 }
