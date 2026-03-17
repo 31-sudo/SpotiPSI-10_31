@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar/Sidebar';
-import SongsFetch from '../SongsFetch/SongsFetch';
+import SongsFetch from '../../SongsFetch/SongsFetch';
 import useStyles from './MainSectionStyles';
 
 const MainSection: React.FC = () => {
