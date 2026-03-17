@@ -3,16 +3,19 @@ import HomeIcon from '@mui/icons-material/Home';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import useStyles from './SidebarStyles';
+import { Link } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.mainSectionDiv}>
-            <div className={classes.option}>
-                <HomeIcon></HomeIcon>
-                <p>כל השירים</p>
-            </div>
+            <Link to="/api/songs">
+                <div className={classes.option} >
+                    <HomeIcon></HomeIcon>
+                    <p>כל השירים</p>
+                </div>
+            </Link>
             <div className={classes.option}>
                 <LibraryMusicIcon></LibraryMusicIcon>
                 <p>פלייליסטים</p>
