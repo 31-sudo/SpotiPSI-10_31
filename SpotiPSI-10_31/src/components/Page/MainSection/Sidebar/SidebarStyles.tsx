@@ -17,6 +17,13 @@ const useStyles = makeStyles()(() => ({
         '&:hover': {
             backgroundColor: '#2D2032'
         }
+    },
+    chosenOption: {
+        color: '#B3B3B3',
+        backgroundColor: '#2D2032',
+        padding: '15px',
+        display: 'flex',
+        gap: '25px',
     }
 }));
 

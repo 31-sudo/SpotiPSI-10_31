@@ -1,7 +1,6 @@
 import React from 'react';
 import Page from './components/Page/Page';
-import AllSongs from "./components/AllSongs/AllSongs";
-
+import SongsFetch from './components/SongsFetch/SongsFetch';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App: React.FC = () => {
@@ -9,7 +8,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Page />} >
-        <Route path='/api/songs' element={<AllSongs/>}/>
+          <Route path='/api/songs' element={<SongsFetch/>}/>
         </Route>
       </Routes>
     </Router>
