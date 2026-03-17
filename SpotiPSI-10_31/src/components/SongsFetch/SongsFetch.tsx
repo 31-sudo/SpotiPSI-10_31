@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { type Song } from "./types"
-import useStyles from "./SongsFetchStyles";
+import AllSongsPage from "../AllSongsPage/AllSongsPage";
+import { type Song } from "../../data/types";
 
 const SongsFetch = () => {
     const [songsList, setSongsList] = useState<Song[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
-
-    const { classes } = useStyles();
 
 
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
@@ -33,24 +31,17 @@ const SongsFetch = () => {
             setIsLoading(false);
         }
     };
+
     //קריאה לשירים מהשרת רק בעלייה ראשונה של הקומפוננטה
     //תזכורת: כאשר נקרא ליוז אפקט עם סוגריים ריקות זה אומר שהקוד ירוץ 
     //רק ברנרוד הראשון של הקומפוננטה
     useEffect(() => {
         fetchSongs();
     }, [])
+
     return (
-        <div className={classes.songs}>
-            {isLoading && <p>Loading...</p>}
-
-            {error && <p>{error}</p>}
-
-            {!isLoading && !error && songsList.map((song, index) => (
-                <div key={index}>
-                    <h2>{song.name}</h2>
-                </div>
-            ))}
-        </div>
+        <AllSongsPage isLoading={isLoading} error={error} allSongs={songsList} />
     );
 }
+
 export default SongsFetch;
