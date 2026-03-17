@@ -1,12 +1,16 @@
 import React from 'react';
 import Page from './components/Page/Page';
+import AllSongs from "./components/AllSongs/AllSongs";
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Page />} />
+        <Route path='/' element={<Page />} >
+        <Route path='/api/songs' element={<AllSongs/>}/>
+        </Route>
       </Routes>
     </Router>
   );
