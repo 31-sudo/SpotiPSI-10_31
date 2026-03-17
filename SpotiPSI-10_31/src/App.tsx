@@ -1,13 +1,15 @@
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import React from 'react';
+import Page from './components/Page/Page';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div>
-      <Header />
-      <Footer />
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path='/' element={<Page />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App
