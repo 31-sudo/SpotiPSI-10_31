@@ -17,13 +17,15 @@ interface Props {
     playlists: Playlist[],
     currentPage: string,
     addSongToFavorites(id: string): void,
-    removeSongFromFavorites(id: string): void
+    removeSongFromFavorites(id: string): void,
+    addPlaylist(name: string): void
 }
 
 const SongsTable = ({isLoading, error, allSongs,
                      isLoadingFavorites, favoritesError, favoritesList,
                      isLoadingPlaylists, playlistsError, playlists,
-                     currentPage, addSongToFavorites, removeSongFromFavorites}: Props) => {
+                     currentPage, addSongToFavorites, removeSongFromFavorites,
+                     addPlaylist}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -51,7 +53,7 @@ const SongsTable = ({isLoading, error, allSongs,
                 {isLoadingPlaylists && <p>Loading...</p>}
                 {playlistsError && <p>{error}</p>}
                 {!isLoadingPlaylists && !playlistsError && 
-                <PlaylistsPage playlists={playlists}/>}
+                <PlaylistsPage playlists={playlists} addPlaylist={addPlaylist}/>}
             </div>}
         </div>
     );

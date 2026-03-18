@@ -40,7 +40,7 @@ const useStyles = makeStyles()(() => ({
     createButtonColor: {
         color: 'white'
     },
-    textLabel: {
+    textField: {
         '& label': {
             color: 'white',
         },
@@ -52,7 +52,7 @@ const useStyles = makeStyles()(() => ({
         },
         '& .MuiInput-underline:after': {
             borderBottomColor: 'white',
-        },
+        }
     },
     dialog: {
         direction: 'rtl',
