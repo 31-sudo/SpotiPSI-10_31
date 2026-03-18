@@ -9,7 +9,7 @@ interface Props {
     setCurrentPage(page: string): void
 }
 
-const Sidebar = ({currentPage, setCurrentPage}: Props) => {
+const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -25,10 +25,13 @@ const Sidebar = ({currentPage, setCurrentPage}: Props) => {
                 <LibraryMusicIcon></LibraryMusicIcon>
                 <p>פלייליסטים</p>
             </div>
-            <div className={classes.option}>
-                <FavoriteIcon></FavoriteIcon>
-                <p>מועדפים</p>
-            </div>
+            <Link to="/api/favorites" className={classes.link}>
+                <div onClick={() => setCurrentPage('favorites')}
+                    className={currentPage === 'favorites' ? classes.chosenOption : classes.option}>
+                    <FavoriteIcon></FavoriteIcon>
+                    <p>מועדפים</p>
+                </div>
+            </Link>
         </div>
     )
 }
