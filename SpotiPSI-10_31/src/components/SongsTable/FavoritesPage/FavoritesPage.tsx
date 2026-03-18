@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { type Song } from '../../../data/song';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,9 +15,15 @@ interface Props {
 const FavoritesPage = ({allSongs, favoritesList, removeSongFromFavorites}: Props) => {
     const { classes } = useStyles();
 
-    const [ favoritesSongsList ] = useState<Song[]>(
+
+    const [ favoritesSongsList, setFavoritesSongsList ] = useState<Song[]>(
         allSongs.filter(song => favoritesList.includes(song.id))
     );
+
+    useEffect(() => {
+        setFavoritesSongsList(allSongs.filter(song => favoritesList.includes(song.id)));
+    }, [favoritesList]);
+
 
     return (
         <div className={classes.songs}>

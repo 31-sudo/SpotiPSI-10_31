@@ -1,7 +1,7 @@
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
-    songs: {
+    playlists: {
         direction: 'rtl',
         height: '82vh',
         width: '100%',
@@ -20,29 +20,13 @@ const useStyles = makeStyles()(() => ({
             borderRadius: '5px'
         }
     },
-    allSongsTitle: {
-        padding: '25px'
-    },
-    song: {
-        direction: 'ltr',
-        borderBottom: '1px solid #545454',
-        padding: '20px',
+    plalistsHeader: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    items: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    item: {
-        color: '#B3B3B3'
-    },
-    playIcon: {
-        color: '#9B59B6'
-    },
-    favorite: {
-        color: '#9B59B6'
+    allPlaylistsTitle: {
+        padding: '25px'
     }
 }));
 
