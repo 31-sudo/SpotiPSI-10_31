@@ -1,4 +1,4 @@
-import { type Song } from '../../../data/types';
+import { type Song } from '../../../data/song';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
