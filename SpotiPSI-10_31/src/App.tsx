@@ -9,6 +9,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path='/' element={<Page />} >
           <Route path='/api/songs' element={<SongsFetch />}/>
+          <Route path='/api/playlists' element={<SongsFetch />}/>
           <Route path='/api/favorites' element={<SongsFetch />}/>
         </Route>
       </Routes>
