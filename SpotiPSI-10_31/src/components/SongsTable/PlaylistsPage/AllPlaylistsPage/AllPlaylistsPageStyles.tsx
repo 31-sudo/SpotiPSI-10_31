@@ -3,7 +3,7 @@ import { makeStyles } from "tss-react/mui";
 const useStyles = makeStyles()(() => ({
     playlists: {
         direction: 'rtl',
-        height: '82vh',
+        height: '72vh',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
