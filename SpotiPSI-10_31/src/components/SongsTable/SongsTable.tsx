@@ -1,6 +1,8 @@
-import { type Song } from '../../data/types';
+import { type Song } from '../../data/song';
+import { type Playlist } from '../../data/playlist';
 import AllSongs from './AllSongs/AllSongs';
 import FavoritesPage from './FavoritesPage/FavoritesPage';
+import PlaylistsPage from './PlaylistsPage/PlaylistsPage';
 import useStyles from './SongsTableStyles';
 
 interface Props {
@@ -10,13 +12,18 @@ interface Props {
     isLoadingFavorites: boolean,
     favoritesError: string | undefined,
     favoritesList: string[],
+    isLoadingPlaylists: boolean,
+    playlistsError: string | undefined,
+    playlists: Playlist[],
     currentPage: string,
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void
 }
 
-const SongsTable = ({isLoading, error, allSongs, isLoadingFavorites,
-                     favoritesError, favoritesList, currentPage, addSongToFavorites, removeSongFromFavorites}: Props) => {
+const SongsTable = ({isLoading, error, allSongs,
+                     isLoadingFavorites, favoritesError, favoritesList,
+                     isLoadingPlaylists, playlistsError, playlists,
+                     currentPage, addSongToFavorites, removeSongFromFavorites}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -37,6 +44,14 @@ const SongsTable = ({isLoading, error, allSongs, isLoadingFavorites,
                 {!isLoadingFavorites && !favoritesError && 
                 <FavoritesPage allSongs={allSongs} favoritesList={favoritesList}
                           removeSongFromFavorites={removeSongFromFavorites}/>}
+            </div>}
+
+             {currentPage === 'playlists' && 
+            <div>
+                {isLoadingPlaylists && <p>Loading...</p>}
+                {playlistsError && <p>{error}</p>}
+                {!isLoadingPlaylists && !playlistsError && 
+                <PlaylistsPage playlists={playlists}/>}
             </div>}
         </div>
     );

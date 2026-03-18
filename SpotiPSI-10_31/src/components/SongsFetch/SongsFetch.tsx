@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import SongsTable from "../SongsTable/SongsTable";
-import { type Song } from "../../data/types";
+import { type Song } from "../../data/song";
 import { useOutletContext } from "react-router-dom";
+import type { Playlist } from "../../data/playlist";
 
 const SongsFetch = () => {
     const [songsList, setSongsList] = useState<Song[]>([]);
@@ -14,7 +15,7 @@ const SongsFetch = () => {
 
     const currentPage: string = useOutletContext();
 
-    const [playlists, setplaylists]=useState<Song[]>([]);
+    const [playlists, setplaylists]=useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setplaylistsError] = useState<string>();
 
@@ -70,7 +71,7 @@ const SongsFetch = () => {
                 },
                 body: JSON.stringify({songId: id})
             });
-            fetchFavorites();
+            setFavoritesList(prev => [...prev, id])
         }
         catch (error) {
             console.log(error);
@@ -88,7 +89,12 @@ const SongsFetch = () => {
                 },
                 body: JSON.stringify({songId: id})
             });
-            fetchFavorites();
+            setFavoritesList(prev => {
+                const idIndex: number = prev.indexOf(id);
+                const newFavoritesList: string[] = [...prev];
+                newFavoritesList.splice(idIndex, 1);
+                return newFavoritesList;
+            })
         }
         catch (error) {
             console.log(error);
@@ -111,7 +117,7 @@ const SongsFetch = () => {
         }
         catch (error) {
             //הגדרת שגיאה בגישה לשרת
-            setError("Something went wrong");
+            setplaylistsError("Something went wrong");
             console.log(error);
             return;
         }
@@ -127,19 +133,24 @@ const SongsFetch = () => {
     useEffect(() => {
         fetchSongs();
         fetchFavorites();
+        fetchPlaylists();
     }, [])
 
     return (
         <SongsTable
-                   isLoading={isLoading}
-                   error={error}
-                   allSongs={songsList}
-                   isLoadingFavorites={isLoadingFavorites}
-                   favoritesError={favoritesError}
-                   favoritesList={favoritesList}
-                   currentPage={currentPage}
-                   addSongToFavorites={addSongTofavorites}
-                   removeSongFromFavorites={removeSongFromfavorites} />
+            isLoading={isLoading}
+            error={error}
+            allSongs={songsList}
+            isLoadingFavorites={isLoadingFavorites}
+            favoritesError={favoritesError}
+            favoritesList={favoritesList}
+            addSongToFavorites={addSongTofavorites}
+            removeSongFromFavorites={removeSongFromfavorites}
+            playlists={playlists}
+            isLoadingPlaylists={isLoadingPlaylists}
+            playlistsError={playlistsError}
+            currentPage={currentPage}
+        />
     );
 }
 
