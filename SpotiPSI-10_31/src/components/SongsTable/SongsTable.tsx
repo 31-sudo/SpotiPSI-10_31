@@ -18,43 +18,49 @@ interface Props {
     currentPage: string,
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
-    addPlaylist(name: string): void
+    addPlaylist(name: string): void,
+    addSongToPlaylist(playlistId: string, songId: string): void
 }
 
-const SongsTable = ({isLoading, error, allSongs,
-                     isLoadingFavorites, favoritesError, favoritesList,
-                     isLoadingPlaylists, playlistsError, playlists,
-                     currentPage, addSongToFavorites, removeSongFromFavorites,
-                     addPlaylist}: Props) => {
+const SongsTable = ({ isLoading, error, allSongs,
+    isLoadingFavorites, favoritesError, favoritesList,
+    isLoadingPlaylists, playlistsError, playlists,
+    currentPage, addSongToFavorites, removeSongFromFavorites,
+    addPlaylist, addSongToPlaylist }: Props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.songs}>
-            {currentPage === 'songs' && 
-            <div>
-                {isLoading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
-                {!isLoading && !error && 
-                <AllSongs allSongs={allSongs} favoritesList={favoritesList}
-                          addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}/>}
-            </div>}
+            {currentPage === 'songs' &&
+                <div>
+                    {isLoading && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
+                    {!isLoading && !error &&
+                        <AllSongs allSongs={allSongs} favoritesList={favoritesList} playlists={playlists}
+                            addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
+                            addSongToPlaylist={addSongToPlaylist} />}
+                </div>}
 
-            {currentPage === 'favorites' && 
-            <div>
-                {isLoadingFavorites && <p>Loading...</p>}
-                {favoritesError && <p>{error}</p>}
-                {!isLoadingFavorites && !favoritesError && 
-                <FavoritesPage allSongs={allSongs} favoritesList={favoritesList}
-                          removeSongFromFavorites={removeSongFromFavorites}/>}
-            </div>}
+            {currentPage === 'favorites' &&
+                <div>
+                    {isLoadingFavorites && <p>Loading...</p>}
+                    {favoritesError && <p>{error}</p>}
+                    {!isLoadingFavorites && !favoritesError &&
+                        <FavoritesPage allSongs={allSongs} favoritesList={favoritesList}
+                            removeSongFromFavorites={removeSongFromFavorites} />}
+                </div>}
 
-             {currentPage === 'playlists' && 
-            <div>
-                {isLoadingPlaylists && <p>Loading...</p>}
-                {playlistsError && <p>{error}</p>}
-                {!isLoadingPlaylists && !playlistsError && 
-                <PlaylistsPage playlists={playlists} addPlaylist={addPlaylist}/>}
-            </div>}
+            {currentPage === 'playlists' &&
+                <div>
+                    {isLoadingPlaylists && <p>Loading...</p>}
+                    {playlistsError && <p>{error}</p>}
+                    {!isLoadingPlaylists && !playlistsError &&
+                        <PlaylistsPage playlists={playlists} addPlaylist={addPlaylist}
+                            allSongs={allSongs} favoritesList={favoritesList}
+                            addSongToFavorites={addSongToFavorites}
+                            removeSongFromFavorites={removeSongFromFavorites}
+                            addSongToPlaylist={addSongToPlaylist} />}
+                </div>}
         </div>
     );
 }

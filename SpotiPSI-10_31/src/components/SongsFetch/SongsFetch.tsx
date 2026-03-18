@@ -16,7 +16,7 @@ const SongsFetch = () => {
 
     const currentPage: string = useOutletContext();
 
-    const [playlists, setPlaylists]=useState<Playlist[]>([]);
+    const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setPlaylistsError] = useState<string>();
 
@@ -67,10 +67,10 @@ const SongsFetch = () => {
             await fetch('http://127.0.0.1:5001/api/favorites/add', {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({songId: id})
+                body: JSON.stringify({ songId: id })
             });
             setFavoritesList(prev => [...prev, id])
         }
@@ -85,10 +85,10 @@ const SongsFetch = () => {
             await fetch('http://127.0.0.1:5001/api/favorites/remove', {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({songId: id})
+                body: JSON.stringify({ songId: id })
             });
             setFavoritesList(prev => {
                 const idIndex: number = prev.indexOf(id);
@@ -103,7 +103,7 @@ const SongsFetch = () => {
         }
     }
 
-    
+
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchPlaylists = async () => {
         //הגדרת התחלת טעינה של שירים 
@@ -139,12 +139,38 @@ const SongsFetch = () => {
             await fetch('http://127.0.0.1:5001/api/playlists', {
                 method: 'POST',
                 headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(newPlaylist)
             });
             setPlaylists(prev => [...prev, newPlaylist])
+        }
+        catch (error) {
+            console.log(error);
+            return;
+        }
+    }
+
+
+    const addSongToPlaylist = async (playlistId: string, songId: string) => {
+        try {
+            await fetch(`http://127.0.0.1:5001/api/playlists/${playlistId}/add`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ songId: songId })
+            });
+            setPlaylists(prev => {
+                return prev.map((playlist) => {
+                    if (playlist.id === playlistId && !playlist.songIds.includes(songId)) {
+                        playlist.songIds.push(songId);
+                    }
+                    return playlist;
+                })
+            })
         }
         catch (error) {
             console.log(error);
@@ -162,6 +188,7 @@ const SongsFetch = () => {
         fetchPlaylists();
     }, [])
 
+
     return (
         <SongsTable
             isLoading={isLoading}
@@ -177,6 +204,7 @@ const SongsFetch = () => {
             addSongToFavorites={addSongTofavorites}
             removeSongFromFavorites={removeSongFromfavorites}
             addPlaylist={addPlaylist}
+            addSongToPlaylist={addSongToPlaylist}
         />
     );
 }

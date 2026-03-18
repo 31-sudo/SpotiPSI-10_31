@@ -1,19 +1,22 @@
 import { type Song } from '../../../data/song';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import useStyles from './AllSongsStyles';
+import AddButtonPage from '../AddButton/AddButtonPage';
+import type { Playlist } from '../../../data/playlist';
 
 interface Props {
     allSongs: Song[],
     favoritesList: string[],
+    playlists: Playlist[],
     addSongToFavorites(id: string): void,
-    removeSongFromFavorites(id: string): void
+    removeSongFromFavorites(id: string): void,
+    addSongToPlaylist(playlistId: string, songId: string): void
 }
 
-const AllSongs = ({allSongs, favoritesList, addSongToFavorites, removeSongFromFavorites}: Props) => {
+const AllSongs = ({allSongs, favoritesList, playlists, addSongToFavorites, removeSongFromFavorites, addSongToPlaylist}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -30,7 +33,7 @@ const AllSongs = ({allSongs, favoritesList, addSongToFavorites, removeSongFromFa
                         </div>
                         <div className={classes.items}>
                             <ListItemIcon>
-                                <AddIcon className={classes.item} />
+                                <AddButtonPage playlists={playlists} currentSong={song} addSongToPlaylist={addSongToPlaylist} />
                             </ListItemIcon>
                             <ListItemIcon>
                                 {(!favoritesList.includes(song.id)) ?
