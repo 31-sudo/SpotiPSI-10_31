@@ -7,7 +7,7 @@ const useStyles = makeStyles()(() => ({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        overflowY: 'scroll',
+        overflowY: 'auto',
         '&::-webkit-scrollbar': {
         width: '10px'
         },
