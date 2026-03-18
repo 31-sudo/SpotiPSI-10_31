@@ -21,10 +21,13 @@ const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
                     <p>כל השירים</p>
                 </div>
             </Link>
-            <div className={classes.option}>
-                <LibraryMusicIcon></LibraryMusicIcon>
-                <p>פלייליסטים</p>
-            </div>
+            <Link to="/api/playlists" className={classes.link}>
+                <div onClick={() => setCurrentPage('playlists')}
+                    className={currentPage === 'playlists' ? classes.chosenOption : classes.option}>
+                    <LibraryMusicIcon></LibraryMusicIcon>
+                    <p>פלייליסטים</p>
+                </div>
+            </Link>
             <Link to="/api/favorites" className={classes.link}>
                 <div onClick={() => setCurrentPage('favorites')}
                     className={currentPage === 'favorites' ? classes.chosenOption : classes.option}>
