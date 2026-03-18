@@ -2,6 +2,7 @@ import { type Song } from '../../data/types';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import useStyles from './SongsTableStyles';
 
@@ -9,10 +10,16 @@ interface Props {
     isLoading: boolean,
     error: string | undefined,
     allSongs: Song[],
-    currentPage: string
+    isLoadingFavorites: boolean,
+    favoritesError: string | undefined,
+    favoritesList: string[],
+    currentPage: string,
+    addSongToFavorites(id: string): void,
+    removeSongFromFavorites(id: string): void
 }
 
-const SongsTable = ({isLoading, error, allSongs, currentPage}: Props) => {
+const SongsTable = ({isLoading, error, allSongs, isLoadingFavorites,
+                     favoritesError, favoritesList, currentPage, addSongToFavorites, removeSongFromFavorites}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -34,12 +41,17 @@ const SongsTable = ({isLoading, error, allSongs, currentPage}: Props) => {
                         </div>
                         <div className={classes.items}>
                             <ListItemIcon>
-                                <IconButton>
-                                    <AddIcon className={classes.item} />
-                                </IconButton>
+                                <AddIcon className={classes.item} />
                             </ListItemIcon>
                             <ListItemIcon>
-                                <FavoriteBorderOutlinedIcon className={classes.item} />
+                                {(!isLoadingFavorites && !favoritesError &&
+                                !favoritesList.includes(song.id)) ?
+                                <IconButton onClick={() => addSongToFavorites(song.id)}>
+                                    <FavoriteBorderOutlinedIcon className={classes.item} />
+                                </IconButton> :
+                                <IconButton onClick={() => removeSongFromFavorites(song.id)}>
+                                    <FavoriteIcon className={classes.favorite} />
+                                </IconButton>}
                             </ListItemIcon>
                         </div>
                     </ListItem>
