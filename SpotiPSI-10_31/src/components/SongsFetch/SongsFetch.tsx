@@ -15,7 +15,7 @@ const SongsFetch = () => {
 
     const currentPage: string = useOutletContext();
 
-    const [playlists, setplaylists]=useState<Playlist[]>([]);
+    const [playlists, setplaylists]=useState<Playlist[]>([{id: '1', name: 'My Playlist', songsId: ['a']},{id: '1', name: 'My Playlist', songsId: ['a', 'b']},{id: '1', name: 'My Playlist', songsId: ['a']}]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setplaylistsError] = useState<string>();
 
@@ -133,7 +133,6 @@ const SongsFetch = () => {
     useEffect(() => {
         fetchSongs();
         fetchFavorites();
-        fetchPlaylists();
     }, [])
 
     return (
