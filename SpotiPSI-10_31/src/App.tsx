@@ -8,7 +8,8 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Page />} >
-          <Route path='/api/songs' element={<SongsFetch/>}/>
+          <Route path='/api/songs' element={<SongsFetch />}/>
+          <Route path='/api/favorites' element={<SongsFetch />}/>
         </Route>
       </Routes>
     </Router>
