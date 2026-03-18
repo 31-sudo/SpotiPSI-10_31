@@ -23,7 +23,10 @@ const useStyles = makeStyles()(() => ({
         backgroundColor: '#2D2032',
         padding: '15px',
         display: 'flex',
-        gap: '25px',
+        gap: '25px'
+    },
+    link: {
+        textDecorationLine: 'none'
     }
 }));
 

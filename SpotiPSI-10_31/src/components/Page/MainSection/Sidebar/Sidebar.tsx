@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 const Sidebar: React.FC = () => {
     const { classes } = useStyles();
     
-    const [ chosen, setChosen ] = useState<string>('')
+    const [ currentPage, setCurrentPage ] = useState<string>('songs')
 
     return (
         <div className={classes.mainSectionDiv}>
-            <Link to="/api/songs">
-                <div onClick={() => setChosen('all songs')}
-                    className={chosen === 'all songs' ? classes.chosenOption : classes.option}>
+            <Link to="/api/songs" className={classes.link}>
+                <div onClick={() => setCurrentPage('songs')}
+                    className={currentPage === 'songs' ? classes.chosenOption : classes.option}>
                     <HomeIcon></HomeIcon>
                     <p>כל השירים</p>
                 </div>
