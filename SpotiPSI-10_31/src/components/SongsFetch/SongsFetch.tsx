@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SongsTable from "../SongsTable/SongsTable";
 import { type Song } from "../../data/song";
 import { useOutletContext } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 import type { Playlist } from "../../data/playlist";
 
 const SongsFetch = () => {
@@ -15,9 +16,9 @@ const SongsFetch = () => {
 
     const currentPage: string = useOutletContext();
 
-    const [playlists, setplaylists]=useState<Playlist[]>([{id: '1', name: 'My Playlist', songsId: ['a']},{id: '1', name: 'My Playlist', songsId: ['a', 'b']},{id: '1', name: 'My Playlist', songsId: ['a']}]);
+    const [playlists, setPlaylists]=useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
-    const [playlistsError, setplaylistsError] = useState<string>();
+    const [playlistsError, setPlaylistsError] = useState<string>();
 
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchSongs = async () => {
@@ -113,11 +114,11 @@ const SongsFetch = () => {
             const data = await response.json();
 
             //הוספת שירים לסטייט לאחר שהתקבלו מהשרת
-            setplaylists(data);
+            setPlaylists(data);
         }
         catch (error) {
             //הגדרת שגיאה בגישה לשרת
-            setplaylistsError("Something went wrong");
+            setPlaylistsError("Something went wrong");
             console.log(error);
             return;
         }
@@ -127,12 +128,38 @@ const SongsFetch = () => {
         }
     };
 
+
+    const addPlaylist = async (playlistName: string) => {
+        const newPlaylist: Playlist = {
+            id: uuidv4(),
+            name: playlistName,
+            songIds: []
+        }
+        try {
+            await fetch('http://127.0.0.1:5001/api/playlists', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newPlaylist)
+            });
+            setPlaylists(prev => [...prev, newPlaylist])
+        }
+        catch (error) {
+            console.log(error);
+            return;
+        }
+    }
+
+
     //קריאה לשירים מהשרת רק בעלייה ראשונה של הקומפוננטה
     //תזכורת: כאשר נקרא ליוז אפקט עם סוגריים ריקות זה אומר שהקוד ירוץ 
     //רק ברנרוד הראשון של הקומפוננטה
     useEffect(() => {
         fetchSongs();
         fetchFavorites();
+        fetchPlaylists();
     }, [])
 
     return (
@@ -143,12 +170,13 @@ const SongsFetch = () => {
             isLoadingFavorites={isLoadingFavorites}
             favoritesError={favoritesError}
             favoritesList={favoritesList}
-            addSongToFavorites={addSongTofavorites}
-            removeSongFromFavorites={removeSongFromfavorites}
-            playlists={playlists}
             isLoadingPlaylists={isLoadingPlaylists}
             playlistsError={playlistsError}
+            playlists={playlists}
             currentPage={currentPage}
+            addSongToFavorites={addSongTofavorites}
+            removeSongFromFavorites={removeSongFromfavorites}
+            addPlaylist={addPlaylist}
         />
     );
 }

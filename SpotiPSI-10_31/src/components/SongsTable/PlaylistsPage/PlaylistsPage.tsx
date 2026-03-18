@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { type Playlist } from '../../../data/playlist';
 import useStyles from './PlaylistsPageStyles';
 import * as React from 'react';
@@ -11,13 +12,15 @@ import { List, ListItem, ListItemText } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 
 interface Props {
-    playlists: Playlist[]
+    playlists: Playlist[],
+    addPlaylist(name: string): void
 }
 
-const PlaylistsPage = ({ playlists }: Props) => {
+const PlaylistsPage = ({ playlists, addPlaylist }: Props) => {
     const { classes } = useStyles();
-
+    
     const [open, setOpen] = React.useState(false);
+    const [playlistName, setPlaylistName] = useState<string>('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -25,15 +28,6 @@ const PlaylistsPage = ({ playlists }: Props) => {
 
     const handleClose = () => {
         setOpen(false);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const formJson = Object.fromEntries((formData as any).entries());
-        const email = formJson.email;
-        console.log(email);
-        handleClose();
     };
 
     return (
@@ -50,8 +44,11 @@ const PlaylistsPage = ({ playlists }: Props) => {
             <Dialog className={classes.dialog} open={open} onClose={handleClose}>
                 <DialogTitle>יצירת פלייליסט חדש</DialogTitle>
                     <DialogContent>
-                        <form onSubmit={handleSubmit} id='addPlaylist'>
-                            <TextField className={classes.textLabel}
+                        <form id='addPlaylist'>
+                            <TextField
+                                      onChange={(event) => {setPlaylistName(event.target.value)}}
+                                      value={playlistName}
+                                      className={classes.textField}
                             autoFocus
                             required
                             margin='dense'
@@ -69,7 +66,15 @@ const PlaylistsPage = ({ playlists }: Props) => {
                     <Button className={classes.cancelButtonColor} onClick={handleClose}>
                         ביטול
                     </Button>
-                    <Button className={classes.createButtonColor} type='submit' form='subscription-form'>
+                    <Button
+                          onClick={() => {
+                            addPlaylist(playlistName);
+                            setPlaylistName('');
+                            handleClose();
+                          }}
+                          className={classes.createButtonColor}
+                          type='submit'
+                          form='subscription-form'>
                         צור
                     </Button>
                 </DialogActions>
@@ -80,7 +85,7 @@ const PlaylistsPage = ({ playlists }: Props) => {
                     <ListItem key={index} className={classes.playlist}>
                         <ListItemText>{playlist.name}</ListItemText>
                         <ListItemText>
-                            <p className={classes.songsNumber}>{playlist.songsId.length} שירים</p>
+                            <p className={classes.songsNumber}>{playlist.songIds.length} שירים</p>
                             </ListItemText>
                     </ListItem>
                 ))}
