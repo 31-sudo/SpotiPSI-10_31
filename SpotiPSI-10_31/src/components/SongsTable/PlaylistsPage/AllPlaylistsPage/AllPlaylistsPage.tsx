@@ -84,10 +84,10 @@ const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPla
 
             <List>
                 {playlists.map((playlist, index) => (
-                    <div onClick={() => {
+                    <div key={index} onClick={() => {
                                          setPlaylistId(playlist.id)
                                          setCurrentPlaylist(playlist)}}>
-                        <ListItem key={index} className={classes.playlist}>
+                        <ListItem className={classes.playlist}>
                             <ListItemText>{playlist.name}</ListItemText>
                             <ListItemText>
                                 <p className={classes.songsNumber}>{playlist.songIds.length} שירים</p>
