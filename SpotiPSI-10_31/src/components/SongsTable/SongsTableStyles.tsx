@@ -40,6 +40,9 @@ const useStyles = makeStyles()(() => ({
     },
     playIcon: {
         color: '#9B59B6'
+    },
+    favorite: {
+        color: '#9B59B6'
     }
 }));
 
