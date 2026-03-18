@@ -1,8 +1,12 @@
 import { Outlet } from "react-router-dom";
 
-const PageContent: React.FC = () => {
+interface Props {
+    currentPage: string
+}
+
+const PageContent = ({currentPage}: Props) => {
     return (
-        <Outlet />
+        <Outlet context={currentPage} />
     )
 }
 

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import AllSongsPage from "../AllSongsPage/AllSongsPage";
+import SongsTable from "../SongsTable/SongsTable";
 import { type Song } from "../../data/types";
+import { useOutletContext } from "react-router-dom";
 
 const SongsFetch = () => {
     const [songsList, setSongsList] = useState<Song[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
 
+    const currentPage: string = useOutletContext();
 
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchSongs = async () => {
@@ -40,7 +42,7 @@ const SongsFetch = () => {
     }, [])
 
     return (
-        <AllSongsPage isLoading={isLoading} error={error} allSongs={songsList} />
+        <SongsTable isLoading={isLoading} error={error} allSongs={songsList} currentPage={currentPage} />
     );
 }
 

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import useStyles from './SidebarStyles';
 import { Link } from 'react-router-dom';
 
-const Sidebar: React.FC = () => {
+interface Props {
+    currentPage: string,
+    setCurrentPage(page: string): void
+}
+
+const Sidebar = ({currentPage, setCurrentPage}: Props) => {
     const { classes } = useStyles();
-    
-    const [ currentPage, setCurrentPage ] = useState<string>('songs')
 
     return (
         <div className={classes.mainSectionDiv}>
