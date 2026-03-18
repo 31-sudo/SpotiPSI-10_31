@@ -21,7 +21,7 @@ const useStyles = makeStyles()(() => ({
         }
     },
     allSongsTitle: {
-        padding: '10px'
+        padding: '25px'
     },
     song: {
         direction: 'ltr',
@@ -32,10 +32,11 @@ const useStyles = makeStyles()(() => ({
         alignItems: 'center'
     },
     items: {
-        color: '#B3B3B3',
         display: 'flex',
-        alignItems: 'center',
-        gap: '10px'
+        alignItems: 'center'
+    },
+    item: {
+        color: '#B3B3B3'
     },
     playIcon: {
         color: '#9B59B6'
