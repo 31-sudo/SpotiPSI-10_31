@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { type Song } from '../../../data/song';
 import type { Playlist } from '../../../data/playlist';
 import SongsList from '../SongsList/SongsList';
@@ -23,15 +23,6 @@ const FavoritesPage = ({ allSongs, favoritesList, playlists, addSongToFavorites,
     useEffect(() => {
         setQueue(allSongs.filter(song => favoritesList.includes(song.id)))
     }, [favoritesList])
-
-    const [favoritesSongsList, setFavoritesSongsList] = useState<Song[]>(
-        allSongs.filter(song => favoritesList.includes(song.id))
-    );
-
-    useEffect(() => {
-        setFavoritesSongsList(allSongs.filter(song => favoritesList.includes(song.id)));
-    }, [favoritesList]);
-
 
     return (
         <div>
