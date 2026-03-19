@@ -19,6 +19,12 @@ const SongsFetch = () => {
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setPlaylistsError] = useState<string>();
 
+    const [currentSong, setCurrentSong] = useState<Song | undefined>();
+    const [isPlaying, setIsPlaying] = useState<boolean>();
+    const [queue, setQueue] = useState<Song[]>([]);
+    const [currentTime, setCurrentTime] = useState<string>();
+    const [duretions, setDuretion] = useState<string>();
+
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchSongs = async () => {
         //הגדרת התחלת טעינה של שירים 
@@ -136,7 +142,7 @@ const SongsFetch = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({name: playlistName})
+                body: JSON.stringify({ name: playlistName })
             });
             const data = await response.json();
             setPlaylists(prev => [...prev, data])
