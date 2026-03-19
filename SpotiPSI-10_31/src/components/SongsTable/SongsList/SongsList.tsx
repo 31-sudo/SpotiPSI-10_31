@@ -18,16 +18,12 @@ const SongsList = ({ allSongs, favoritesList, playlists, addSongToFavorites,
     removeSongFromFavorites, addSongToPlaylist, setCurrentSong }: Props) => {
     const { classes } = useStyles();
 
-    const play = (id: string) => {
-        new Audio(`/src/audio/${id}.mp3`).play();
-    }
 
     return (
         <div className={classes.songs}>
             <List>
                 {allSongs.map((song, index) => (
                     <div key={index} onClick={() => {
-                        play(song.id);
                         setCurrentSong(song);
                     }}>
                         <SongBlock song={song} favoritesList={favoritesList} addSongToFavorites={addSongToFavorites}

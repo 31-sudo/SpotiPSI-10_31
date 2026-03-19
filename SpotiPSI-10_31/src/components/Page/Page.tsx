@@ -5,17 +5,19 @@ import useStyles from './PageStyles';
 import type { Song } from '../../data/song';
 
 interface Props {
-    currentSong: Song | undefined
+    currentSong: Song | undefined,
+    setCurrentSong(song: Song): void,
+    queue: Song[],
 }
 
-const Page= ({currentSong}: Props) => {
+const Page= ({currentSong, setCurrentSong,queue}: Props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.screen}>
             <Header />
             <MainSection />
-            <Footer currentSong={currentSong} />
+            <Footer currentSong={currentSong} setCurrentSong={setCurrentSong} queue={queue}/>
         </div>
     )
 }

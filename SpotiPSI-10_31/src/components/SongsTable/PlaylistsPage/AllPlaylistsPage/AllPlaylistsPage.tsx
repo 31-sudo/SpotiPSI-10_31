@@ -10,7 +10,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { List, ListItem, ListItemText } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
-import { type Song } from '../../../../data/song'; 
 
 interface Props {
     playlists: Playlist[],
