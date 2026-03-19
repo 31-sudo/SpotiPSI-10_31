@@ -10,17 +10,18 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { List, ListItem, ListItemText } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
+import { type Song } from '../../../../data/song'; 
 
 interface Props {
     playlists: Playlist[],
     addPlaylist(name: string): void,
     setPlaylistId(id: string): void,
-    setCurrentPlaylist(playlist: Playlist): void
+    setCurrentPlaylist(playlist: Playlist): void,
 }
 
 const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPlaylist }: Props) => {
     const { classes } = useStyles();
-    
+
     const [open, setOpen] = React.useState(false);
     const [playlistName, setPlaylistName] = useState<string>('');
 
@@ -36,7 +37,7 @@ const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPla
         <div className={classes.playlists}>
             <div className={classes.plalistsHeader}>
                 <h2 className={classes.allPlaylistsTitle}>הפלייליסטים שלי</h2>
-                
+
                 <Button variant='outlined' className={classes.button} onClick={handleClickOpen}>
                     <AddIcon />
                     <p>צור פלייליסט</p>
@@ -45,12 +46,12 @@ const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPla
 
             <Dialog className={classes.dialog} open={open} onClose={handleClose}>
                 <DialogTitle>יצירת פלייליסט חדש</DialogTitle>
-                    <DialogContent>
-                        <form id='addPlaylist'>
-                            <TextField
-                                      onChange={(event) => {setPlaylistName(event.target.value)}}
-                                      value={playlistName}
-                                      className={classes.textField}
+                <DialogContent>
+                    <form id='addPlaylist'>
+                        <TextField
+                            onChange={(event) => { setPlaylistName(event.target.value) }}
+                            value={playlistName}
+                            className={classes.textField}
                             autoFocus
                             required
                             margin='dense'
@@ -60,23 +61,23 @@ const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPla
                             type='text'
                             fullWidth
                             variant='standard'
-                            />
-                        </form>
-                        </DialogContent>
-                    <DialogActions>
-                    
+                        />
+                    </form>
+                </DialogContent>
+                <DialogActions>
+
                     <Button className={classes.cancelButtonColor} onClick={handleClose}>
                         ביטול
                     </Button>
                     <Button
-                          onClick={() => {
+                        onClick={() => {
                             addPlaylist(playlistName);
                             setPlaylistName('');
                             handleClose();
-                          }}
-                          className={classes.createButtonColor}
-                          type='submit'
-                          form='subscription-form'>
+                        }}
+                        className={classes.createButtonColor}
+                        type='submit'
+                        form='subscription-form'>
                         צור
                     </Button>
                 </DialogActions>
@@ -85,13 +86,14 @@ const AllPlaylistsPage = ({ playlists, addPlaylist, setPlaylistId, setCurrentPla
             <List>
                 {playlists.map((playlist, index) => (
                     <div key={index} onClick={() => {
-                                         setPlaylistId(playlist.id)
-                                         setCurrentPlaylist(playlist)}}>
+                        setPlaylistId(playlist.id)
+                        setCurrentPlaylist(playlist)
+                    }}>
                         <ListItem className={classes.playlist}>
                             <ListItemText>{playlist.name}</ListItemText>
                             <ListItemText>
                                 <p className={classes.songsNumber}>{playlist.songIds.length} שירים</p>
-                                </ListItemText>
+                            </ListItemText>
                         </ListItem>
                     </div>
                 ))}

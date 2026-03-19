@@ -15,9 +15,9 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Page currentSong={currentSong} />} >
-          <Route path='/api/songs' element={<SongsFetch setCurrentSong={setCurrentSong} />}/>
-          <Route path='/api/playlists' element={<SongsFetch setCurrentSong={setCurrentSong} />}/>
-          <Route path='/api/favorites' element={<SongsFetch setCurrentSong={setCurrentSong} />}/>
+          <Route path='/api/songs' element={<SongsFetch setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}/>
+          <Route path='/api/playlists' element={<SongsFetch setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}/>
+          <Route path='/api/favorites' element={<SongsFetch setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}/>
         </Route>
       </Routes>
     </Router>

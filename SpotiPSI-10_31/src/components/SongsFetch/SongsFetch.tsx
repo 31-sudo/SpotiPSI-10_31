@@ -5,10 +5,12 @@ import { useOutletContext } from "react-router-dom";
 import type { Playlist } from "../../data/playlist";
 
 interface Props {
-    setCurrentSong(song: Song): void
+    setCurrentSong(song: Song): void,
+    setQueue(songs: Song[]): void,
+    queue: Song[],
 }
 
-const SongsFetch = ({setCurrentSong}: Props) => {
+const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
     const [songsList, setSongsList] = useState<Song[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
@@ -20,6 +22,7 @@ const SongsFetch = ({setCurrentSong}: Props) => {
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setPlaylistsError] = useState<string>();
+    
 
     const currentPage: string = useOutletContext();
 
@@ -34,6 +37,7 @@ const SongsFetch = ({setCurrentSong}: Props) => {
 
             //הוספת שירים לסטייט לאחר שהתקבלו מהשרת
             setSongsList(data);
+            currentPage==='songs'&& setQueue(data)
         }
         catch (error) {
             //הגדרת שגיאה בגישה לשרת
@@ -54,6 +58,7 @@ const SongsFetch = ({setCurrentSong}: Props) => {
             const data = await response.json();
 
             setFavoritesList(data);
+            currentPage==='favorites'&& setQueue(data)
         }
         catch (error) {
             setFavoritesError("Something went wrong");
@@ -118,6 +123,8 @@ const SongsFetch = ({setCurrentSong}: Props) => {
 
             //הוספת שירים לסטייט לאחר שהתקבלו מהשרת
             setPlaylists(data);
+            currentPage==='playlists'&& setQueue(data)
+
         }
         catch (error) {
             //הגדרת שגיאה בגישה לשרת
@@ -205,6 +212,8 @@ const SongsFetch = ({setCurrentSong}: Props) => {
             addPlaylist={addPlaylist}
             addSongToPlaylist={addSongToPlaylist}
             setCurrentSong={setCurrentSong}
+            setQueue={setQueue} 
+            queue={queue}
         />
     );
 }

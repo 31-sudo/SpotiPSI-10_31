@@ -11,12 +11,15 @@ interface Props {
     favoritesList: string[],
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void
+    addSongToPlaylist(playlistId: string, songId: string): void,
+    setCurrentSong(song: Song): void,
+    setQueue(songs: Song[]): void,
+    queue: Song[],
 }
 
 const PlaylistsPage = ({ playlists, addPlaylist,
     allSongs, favoritesList, addSongToFavorites,
-    removeSongFromFavorites, addSongToPlaylist }: Props) => {
+    removeSongFromFavorites, addSongToPlaylist ,setCurrentSong, setQueue, queue}: Props) => {
 
     const [playlistId, setPlaylistId] = useState<string>('');
     const [currentPlaylist, setCurrentPlaylist] = useState<Playlist>({ id: '', name: '', songIds: [] });
@@ -28,7 +31,8 @@ const PlaylistsPage = ({ playlists, addPlaylist,
                     playlists={playlists}
                     addPlaylist={addPlaylist}
                     setPlaylistId={setPlaylistId}
-                    setCurrentPlaylist={setCurrentPlaylist} /> :
+                    setCurrentPlaylist={setCurrentPlaylist} 
+                    /> :
                 <SinglePlaylistPage
                     setPlaylistId={setPlaylistId}
                     currentPlaylist={currentPlaylist}
@@ -37,7 +41,11 @@ const PlaylistsPage = ({ playlists, addPlaylist,
                     favoritesList={favoritesList}
                     addSongToFavorites={addSongToFavorites}
                     removeSongFromFavorites={removeSongFromFavorites}
-                    addSongToPlaylist={addSongToPlaylist} />}
+                    addSongToPlaylist={addSongToPlaylist} 
+                    setCurrentSong={setCurrentSong}
+                    setCurrentPlaylist={setCurrentPlaylist}
+                    setQueue={setQueue}
+                    queue={queue}/>}
         </div>
     );
 }

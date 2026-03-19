@@ -20,14 +20,16 @@ interface Props {
     removeSongFromFavorites(id: string): void,
     addPlaylist(name: string): void,
     addSongToPlaylist(playlistId: string, songId: string): void,
-    setCurrentSong(song: Song): void
+    setCurrentSong(song: Song): void,
+    setQueue(songs: Song[]): void,
+    queue: Song[],
 }
 
 const SongsTable = ({ isLoading, error, allSongs,
     isLoadingFavorites, favoritesError, favoritesList,
     isLoadingPlaylists, playlistsError, playlists,
     currentPage, addSongToFavorites, removeSongFromFavorites,
-    addPlaylist, addSongToPlaylist, setCurrentSong }: Props) => {
+    addPlaylist, addSongToPlaylist, setCurrentSong ,setQueue, queue}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -39,7 +41,7 @@ const SongsTable = ({ isLoading, error, allSongs,
                     {!isLoading && !error &&
                         <AllSongs allSongs={allSongs} favoritesList={favoritesList} playlists={playlists}
                             addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
-                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />}
+                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}
                 </div>}
 
             {currentPage === 'favorites' &&
@@ -49,7 +51,7 @@ const SongsTable = ({ isLoading, error, allSongs,
                     {!isLoadingFavorites && !favoritesError &&
                         <FavoritesPage allSongs={allSongs} favoritesList={favoritesList} playlists={playlists}
                             addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
-                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />}
+                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong}  setQueue={setQueue} queue={queue}/>}
                 </div>}
 
             {currentPage === 'playlists' &&
@@ -61,7 +63,7 @@ const SongsTable = ({ isLoading, error, allSongs,
                             allSongs={allSongs} favoritesList={favoritesList}
                             addSongToFavorites={addSongToFavorites}
                             removeSongFromFavorites={removeSongFromFavorites}
-                            addSongToPlaylist={addSongToPlaylist} />}
+                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}
                 </div>}
         </div>
     );

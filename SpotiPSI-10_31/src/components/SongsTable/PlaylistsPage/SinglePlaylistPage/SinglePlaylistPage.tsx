@@ -2,7 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import useStyles from './SinglePlaylistPageStyles';
 import SongsList from '../../SongsList/SongsList';
 import type { Playlist } from '../../../../data/playlist';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Song } from '../../../../data/song';
 
 interface Props {
@@ -14,18 +14,23 @@ interface Props {
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
     addSongToPlaylist(playlistId: string, songId: string): void,
-    setCurrentSong(song: Song): void
+    setCurrentSong(song: Song): void,
+    setPlaylistId(id: string): void,
+    setCurrentPlaylist(playlist: Playlist): void,
+    setQueue(songs: Song[]): void,
+    queue: Song[],
 }
 
 const SinglePlaylistPage = ({ setPlaylistId, currentPlaylist,
                               allSongs, favoritesList,
                               playlists, addSongToFavorites,
                               removeSongFromFavorites, addSongToPlaylist,
-                              setCurrentSong}: Props,) => {
+                              setCurrentSong,setQueue,queue}: Props,) => {
     const { classes } = useStyles();
 
-    const [ playlistSongs ] = useState<Song[]>(allSongs.filter((song) => currentPlaylist.songIds.includes(song.id)))
-
+    useEffect(()=>{
+        setQueue(allSongs.filter((song) => currentPlaylist.songIds.includes(song.id)))
+    },[])
     return (
         <div className={classes.playlist}>
             <div className={classes.playlistHeader}>
@@ -34,7 +39,7 @@ const SinglePlaylistPage = ({ setPlaylistId, currentPlaylist,
                     <ArrowBackIcon className={classes.headerItem}></ArrowBackIcon>
                 </div>
             </div>
-            <SongsList allSongs={playlistSongs} favoritesList={favoritesList} playlists={playlists}
+            <SongsList allSongs={queue} favoritesList={favoritesList} playlists={playlists}
                 addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
                 addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />
         </div>
