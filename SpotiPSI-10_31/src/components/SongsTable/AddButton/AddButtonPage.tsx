@@ -45,9 +45,9 @@ const AddButtonPage = ({ playlists, currentSong, addSongToPlaylist }: Props) => 
                     {playlists.map((playlist, index) => 
                                         <MenuItem
                                                  key={index}
-                                                 onClick={(event) => {
+                                                 onClick={() => {
                                                     addSongToPlaylist(playlist.id, currentSong.id)
-                                                    setAnchorEl(event.currentTarget);
+                                                    handleClose();
                                                  }}>
                                                     {playlist.name}
                                         </MenuItem>
