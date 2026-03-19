@@ -19,7 +19,6 @@ const App: React.FC = () => {
         <Route path='/' element={<Page currentSong={currentSong} />} >
           <Route path='/api/songs' element={<AllSongs setQueue={setQueue} setCurrentSong={setCurrentSong} />}/>
           <Route path='/api/favorites' element={<FavoritesPage setCurrentSong={setCurrentSong} setQueue={setQueue} />}/>
-          <Route path='' element={<SongsFetch setCurrentSong={setCurrentSong} setQueue={setQueue} queue={queue}/>}/>
         </Route>
       </Routes>
     </Router>

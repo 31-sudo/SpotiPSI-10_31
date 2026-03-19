@@ -12,7 +12,7 @@ interface Props {
 const FavoritesPage = ({ setCurrentSong, setQueue }: Props) => {
     const { classes } = useStyles();
 
-    const { songsList, favoritesList, isLoadingFavorites, favoritesError, fetchFavorites } = useSongsFetch();
+    const { songsList, favoritesList } = useSongsFetch();
 
     const [favoritesSongsList, setFavoritesSongsList] = useState<Song[]>(
         songsList.filter(song => favoritesList.includes(song.id))
@@ -20,6 +20,7 @@ const FavoritesPage = ({ setCurrentSong, setQueue }: Props) => {
 
     useEffect(() => {
         setFavoritesSongsList(songsList.filter(song => favoritesList.includes(song.id)));
+        console.log("favorites" + favoritesList)
         setQueue(songsList.filter(song => favoritesList.includes(song.id)))
     }, [favoritesList]);
 

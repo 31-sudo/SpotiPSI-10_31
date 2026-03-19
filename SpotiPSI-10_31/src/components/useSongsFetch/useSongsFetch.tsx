@@ -86,11 +86,10 @@ const useSongsFetch = () => {
                 body: JSON.stringify({ songId: id })
             });
             setFavoritesList(prev => {
-                const idIndex: number = prev.indexOf(id);
-                const newFavoritesList: string[] = [...prev];
-                newFavoritesList.splice(idIndex, 1);
-                return newFavoritesList;
-            })
+                prev = prev.filter((song: string) => {return song !== id});
+                console.log(prev);
+                return prev;
+            });
         }
         catch (error) {
             console.log(error);
@@ -176,6 +175,8 @@ const useSongsFetch = () => {
     //רק ברנרוד הראשון של הקומפוננטה
     useEffect(() => {
         fetchSongs();
+        fetchFavorites();
+        fetchPlaylists();
     }, []);
 
     return { songsList, isLoading, error, favoritesList, isLoadingFavorites, favoritesError,

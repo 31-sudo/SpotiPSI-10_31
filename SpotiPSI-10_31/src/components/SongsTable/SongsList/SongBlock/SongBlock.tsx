@@ -33,7 +33,7 @@ const SongBlock = ({ song }: Props) => {
                         <IconButton onClick={() => addSongTofavorites(song.id)}>
                             <FavoriteBorderOutlinedIcon className={classes.item} />
                         </IconButton> :
-                        <IconButton onClick={() => {removeSongFromfavorites(song.id); fetchFavorites()}}>
+                        <IconButton onClick={() => {removeSongFromfavorites(song.id)}}>
                             <FavoriteIcon className={classes.favorite} />
                         </IconButton>}
                 </ListItemIcon>
