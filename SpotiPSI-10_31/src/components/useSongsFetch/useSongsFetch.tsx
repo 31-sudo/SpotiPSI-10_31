@@ -1,16 +1,8 @@
-import { useEffect, useState } from "react";
-import SongsTable from "../SongsTable/SongsTable";
-import { type Song } from "../../data/song";
-import { useOutletContext } from "react-router-dom";
-import type { Playlist } from "../../data/playlist";
+import { useState, useEffect } from 'react';
+import type { Song } from '../../data/song';
+import type { Playlist } from '../../data/playlist'
 
-interface Props {
-    setCurrentSong(song: Song): void,
-    setQueue(songs: Song[]): void,
-    queue: Song[],
-}
-
-const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
+const useSongsFetch = () => {
     const [songsList, setSongsList] = useState<Song[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
@@ -22,9 +14,6 @@ const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setPlaylistsError] = useState<string>();
-    
-
-    const currentPage: string = useOutletContext();
 
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchSongs = async () => {
@@ -37,7 +26,6 @@ const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
 
             //הוספת שירים לסטייט לאחר שהתקבלו מהשרת
             setSongsList(data);
-            currentPage==='songs'&& setQueue(data)
         }
         catch (error) {
             //הגדרת שגיאה בגישה לשרת
@@ -58,7 +46,6 @@ const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
             const data = await response.json();
 
             setFavoritesList(data);
-            currentPage==='favorites'&& setQueue(data)
         }
         catch (error) {
             setFavoritesError("Something went wrong");
@@ -123,7 +110,6 @@ const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
 
             //הוספת שירים לסטייט לאחר שהתקבלו מהשרת
             setPlaylists(data);
-            currentPage==='playlists'&& setQueue(data)
 
         }
         catch (error) {
@@ -190,32 +176,12 @@ const SongsFetch = ({ setCurrentSong, setQueue, queue }: Props) => {
     //רק ברנרוד הראשון של הקומפוננטה
     useEffect(() => {
         fetchSongs();
-        fetchFavorites();
-        fetchPlaylists();
-    }, [])
+    }, []);
 
-
-    return (
-        <SongsTable
-            isLoading={isLoading}
-            error={error}
-            allSongs={songsList}
-            isLoadingFavorites={isLoadingFavorites}
-            favoritesError={favoritesError}
-            favoritesList={favoritesList}
-            isLoadingPlaylists={isLoadingPlaylists}
-            playlistsError={playlistsError}
-            playlists={playlists}
-            currentPage={currentPage}
-            addSongToFavorites={addSongTofavorites}
-            removeSongFromFavorites={removeSongFromfavorites}
-            addPlaylist={addPlaylist}
-            addSongToPlaylist={addSongToPlaylist}
-            setCurrentSong={setCurrentSong}
-            setQueue={setQueue} 
-            queue={queue}
-        />
-    );
+    return { songsList, isLoading, error, favoritesList, isLoadingFavorites, favoritesError,
+        playlists, isLoadingPlaylists, playlistsError, fetchSongs, fetchFavorites, addSongTofavorites,
+        removeSongFromfavorites, fetchPlaylists, addPlaylist, addSongToPlaylist
+    };
 }
 
-export default SongsFetch;
+export default useSongsFetch;

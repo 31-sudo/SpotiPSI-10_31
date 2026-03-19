@@ -1,44 +1,32 @@
 import { useEffect, useState } from 'react';
 import { type Song } from '../../../data/song';
-import type { Playlist } from '../../../data/playlist';
 import SongsList from '../SongsList/SongsList';
 import useStyles from './FavoritesPageStyle';
+import useSongsFetch from '../../useSongsFetch/useSongsFetch';
 
 interface Props {
-    allSongs: Song[],
-    favoritesList: string[],
-    playlists: Playlist[],
-    addSongToFavorites(id: string): void,
-    removeSongFromFavorites(id: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void,
     setCurrentSong(song: Song): void,
-    setQueue(songs: Song[]): void,
-    queue: Song[],
+    setQueue(songs: Song[]): void
 }
 
-const FavoritesPage = ({ allSongs, favoritesList, playlists, addSongToFavorites,
-    removeSongFromFavorites, addSongToPlaylist, setCurrentSong ,setQueue,queue}: Props) => {
+const FavoritesPage = ({ setCurrentSong, setQueue }: Props) => {
     const { classes } = useStyles();
 
-    useEffect(() => {
-        setQueue(allSongs.filter(song => favoritesList.includes(song.id)))
-    }, [favoritesList])
+    const { songsList, favoritesList, isLoadingFavorites, favoritesError, fetchFavorites } = useSongsFetch();
 
     const [favoritesSongsList, setFavoritesSongsList] = useState<Song[]>(
-        allSongs.filter(song => favoritesList.includes(song.id))
+        songsList.filter(song => favoritesList.includes(song.id))
     );
 
     useEffect(() => {
-        setFavoritesSongsList(allSongs.filter(song => favoritesList.includes(song.id)));
+        setFavoritesSongsList(songsList.filter(song => favoritesList.includes(song.id)));
+        setQueue(songsList.filter(song => favoritesList.includes(song.id)))
     }, [favoritesList]);
-
 
     return (
         <div>
             <h2 className={classes.favoritesTitle}>המועדפים שלי</h2>
-            <SongsList allSongs={queue} favoritesList={favoritesList} playlists={playlists}
-                addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
-                addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />
+            <SongsList songs={favoritesSongsList} setCurrentSong={setCurrentSong} />
         </div>
     );
 }

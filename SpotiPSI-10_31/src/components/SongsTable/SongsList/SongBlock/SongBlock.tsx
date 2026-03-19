@@ -1,24 +1,20 @@
 import { type Song } from '../../../../data/song';
-import type { Playlist } from '../../../../data/playlist';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {  ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import AddButtonPage from '../../AddButtonPage/AddButtonPage';
 import useStyles from './SongBlockStyles';
+import useSongsFetch from '../../../useSongsFetch/useSongsFetch';
 
 interface Props {
     song: Song,
-    favoritesList: string[],
-    playlists: Playlist[],
-    addSongToFavorites(id: string): void,
-    removeSongFromFavorites(id: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void
 }
 
-const SongBlock = ({ song, favoritesList, playlists, addSongToFavorites,
-                removeSongFromFavorites, addSongToPlaylist }: Props) => {
+const SongBlock = ({ song }: Props) => {
     const { classes } = useStyles();
+
+    const { favoritesList, playlists, addSongTofavorites, removeSongFromfavorites, addSongToPlaylist, fetchFavorites } = useSongsFetch();
 
     return (
         <ListItem className={classes.song}>
@@ -34,10 +30,10 @@ const SongBlock = ({ song, favoritesList, playlists, addSongToFavorites,
                 </ListItemIcon>
                 <ListItemIcon>
                     {(!favoritesList.includes(song.id)) ?
-                        <IconButton onClick={() => addSongToFavorites(song.id)}>
+                        <IconButton onClick={() => addSongTofavorites(song.id)}>
                             <FavoriteBorderOutlinedIcon className={classes.item} />
                         </IconButton> :
-                        <IconButton onClick={() => removeSongFromFavorites(song.id)}>
+                        <IconButton onClick={() => {removeSongFromfavorites(song.id); fetchFavorites()}}>
                             <FavoriteIcon className={classes.favorite} />
                         </IconButton>}
                 </ListItemIcon>
