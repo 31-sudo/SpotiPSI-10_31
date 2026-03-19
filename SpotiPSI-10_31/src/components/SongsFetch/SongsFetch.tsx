@@ -4,7 +4,11 @@ import { type Song } from "../../data/song";
 import { useOutletContext } from "react-router-dom";
 import type { Playlist } from "../../data/playlist";
 
-const SongsFetch = () => {
+interface Props {
+    setCurrentSong(song: Song): void
+}
+
+const SongsFetch = ({setCurrentSong}: Props) => {
     const [songsList, setSongsList] = useState<Song[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
@@ -13,17 +17,11 @@ const SongsFetch = () => {
     const [isLoadingFavorites, setIsLoadingFavorites] = useState(false);
     const [favoritesError, setFavoritesError] = useState<string>();
 
-    const currentPage: string = useOutletContext();
-
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [isLoadingPlaylists, setisLoadingPlaylists] = useState(false);
     const [playlistsError, setPlaylistsError] = useState<string>();
 
-    const [currentSong, setCurrentSong] = useState<Song | undefined>();
-    const [isPlaying, setIsPlaying] = useState<boolean>();
-    const [queue, setQueue] = useState<Song[]>([]);
-    const [currentTime, setCurrentTime] = useState<string>();
-    const [duretions, setDuretion] = useState<string>();
+    const currentPage: string = useOutletContext();
 
     //יצירת פונקציה אסיכרונית לשליפת שירים והשמתם בסטייט
     const fetchSongs = async () => {
@@ -206,6 +204,7 @@ const SongsFetch = () => {
             removeSongFromFavorites={removeSongFromfavorites}
             addPlaylist={addPlaylist}
             addSongToPlaylist={addSongToPlaylist}
+            setCurrentSong={setCurrentSong}
         />
     );
 }
