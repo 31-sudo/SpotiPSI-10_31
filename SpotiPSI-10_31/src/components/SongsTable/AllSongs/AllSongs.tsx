@@ -4,7 +4,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import useStyles from './AllSongsStyles';
-import AddButtonPage from '../AddButton/AddButtonPage';
+import AddButtonPage from '../AddButtonPage/AddButtonPage';
 import type { Playlist } from '../../../data/playlist';
 
 interface Props {

@@ -46,8 +46,8 @@ const SongsTable = ({ isLoading, error, allSongs,
                     {isLoadingFavorites && <p>Loading...</p>}
                     {favoritesError && <p>{error}</p>}
                     {!isLoadingFavorites && !favoritesError &&
-                        <FavoritesPage allSongs={allSongs} favoritesList={favoritesList}
-                            removeSongFromFavorites={removeSongFromFavorites} />}
+                        <FavoritesPage allSongs={allSongs} favoritesList={favoritesList} playlists={playlists}
+                            removeSongFromFavorites={removeSongFromFavorites} addSongToPlaylist={addSongToPlaylist} />}
                 </div>}
 
             {currentPage === 'playlists' &&

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import SongsTable from "../SongsTable/SongsTable";
 import { type Song } from "../../data/song";
 import { useOutletContext } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
 import type { Playlist } from "../../data/playlist";
 
 const SongsFetch = () => {
@@ -130,21 +129,17 @@ const SongsFetch = () => {
 
 
     const addPlaylist = async (playlistName: string) => {
-        const newPlaylist: Playlist = {
-            id: uuidv4(),
-            name: playlistName,
-            songIds: []
-        }
         try {
-            await fetch('http://127.0.0.1:5001/api/playlists', {
+            const response = await fetch('http://127.0.0.1:5001/api/playlists', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(newPlaylist)
+                body: JSON.stringify({name: playlistName})
             });
-            setPlaylists(prev => [...prev, newPlaylist])
+            const data = await response.json();
+            setPlaylists(prev => [...prev, data])
         }
         catch (error) {
             console.log(error);
