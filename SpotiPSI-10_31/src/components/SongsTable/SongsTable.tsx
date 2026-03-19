@@ -19,14 +19,15 @@ interface Props {
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
     addPlaylist(name: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void
+    addSongToPlaylist(playlistId: string, songId: string): void,
+    setCurrentSong(song: Song): void
 }
 
 const SongsTable = ({ isLoading, error, allSongs,
     isLoadingFavorites, favoritesError, favoritesList,
     isLoadingPlaylists, playlistsError, playlists,
     currentPage, addSongToFavorites, removeSongFromFavorites,
-    addPlaylist, addSongToPlaylist }: Props) => {
+    addPlaylist, addSongToPlaylist, setCurrentSong }: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -38,7 +39,7 @@ const SongsTable = ({ isLoading, error, allSongs,
                     {!isLoading && !error &&
                         <AllSongs allSongs={allSongs} favoritesList={favoritesList} playlists={playlists}
                             addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
-                            addSongToPlaylist={addSongToPlaylist} />}
+                            addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />}
                 </div>}
 
             {currentPage === 'favorites' &&

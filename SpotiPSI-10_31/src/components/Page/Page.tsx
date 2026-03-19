@@ -1,17 +1,21 @@
-import React from 'react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import MainSection from './MainSection/MainSection';
 import useStyles from './PageStyles';
+import type { Song } from '../../data/song';
 
-const Page: React.FC = () => {
+interface Props {
+    currentSong: Song | undefined
+}
+
+const Page= ({currentSong}: Props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.screen}>
             <Header />
             <MainSection />
-            <Footer />
+            <Footer currentSong={currentSong} />
         </div>
     )
 }

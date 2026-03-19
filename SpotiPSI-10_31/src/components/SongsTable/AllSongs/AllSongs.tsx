@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { type Song } from '../../../data/song';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -7,7 +6,6 @@ import { List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/mat
 import useStyles from './AllSongsStyles';
 import AddButtonPage from '../AddButtonPage/AddButtonPage';
 import type { Playlist } from '../../../data/playlist';
-import { useEffect } from 'react';
 
 interface Props {
     allSongs: Song[],
@@ -15,10 +13,12 @@ interface Props {
     playlists: Playlist[],
     addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void
+    addSongToPlaylist(playlistId: string, songId: string): void,
+    setCurrentSong(song: Song): void
 }
 
-const AllSongs = ({allSongs, favoritesList, playlists, addSongToFavorites, removeSongFromFavorites, addSongToPlaylist}: Props) => {
+const AllSongs = ({ allSongs, favoritesList, playlists, addSongToFavorites,
+    removeSongFromFavorites, addSongToPlaylist, setCurrentSong }: Props) => {
     const { classes } = useStyles();
 
     const play = (id: string) => {
@@ -30,7 +30,10 @@ const AllSongs = ({allSongs, favoritesList, playlists, addSongToFavorites, remov
             <h2 className={classes.allSongsTitle}>כל השירים</h2>
             <List>
                 {allSongs.map((song, index) => (
-                    <div key={index} onClick={() => play(song.id)}>
+                    <div key={index} onClick={() => {
+                        play(song.id);
+                        setCurrentSong(song);
+                    }}>
                         <ListItem className={classes.song}>
                             <div className={classes.items}>
                                 <ListItemIcon>
@@ -44,12 +47,12 @@ const AllSongs = ({allSongs, favoritesList, playlists, addSongToFavorites, remov
                                 </ListItemIcon>
                                 <ListItemIcon>
                                     {(!favoritesList.includes(song.id)) ?
-                                    <IconButton onClick={() => addSongToFavorites(song.id)}>
-                                        <FavoriteBorderOutlinedIcon className={classes.item} />
-                                    </IconButton> :
-                                    <IconButton onClick={() => removeSongFromFavorites(song.id)}>
-                                        <FavoriteIcon className={classes.favorite} />
-                                    </IconButton>}
+                                        <IconButton onClick={() => addSongToFavorites(song.id)}>
+                                            <FavoriteBorderOutlinedIcon className={classes.item} />
+                                        </IconButton> :
+                                        <IconButton onClick={() => removeSongFromFavorites(song.id)}>
+                                            <FavoriteIcon className={classes.favorite} />
+                                        </IconButton>}
                                 </ListItemIcon>
                             </div>
                         </ListItem>
