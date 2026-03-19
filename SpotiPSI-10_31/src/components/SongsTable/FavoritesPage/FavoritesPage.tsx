@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { type Song } from '../../../data/song';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import type { Playlist } from '../../../data/playlist';
-import AddButtonPage from '../AddButtonPage/AddButtonPage';
+import SongsList from '../SongsList/SongsList';
 import useStyles from './FavoritesPageStyle';
 
 interface Props {
     allSongs: Song[],
     favoritesList: string[],
     playlists: Playlist[],
+    addSongToFavorites(id: string): void,
     removeSongFromFavorites(id: string): void,
-    addSongToPlaylist(playlistId: string, songId: string): void
+    addSongToPlaylist(playlistId: string, songId: string): void,
+    setCurrentSong(song: Song): void
 }
 
-const FavoritesPage = ({ allSongs, favoritesList, playlists, removeSongFromFavorites, addSongToPlaylist }: Props) => {
+const FavoritesPage = ({ allSongs, favoritesList, playlists, addSongToFavorites,
+    removeSongFromFavorites, addSongToPlaylist, setCurrentSong }: Props) => {
     const { classes } = useStyles();
 
 
@@ -29,30 +29,11 @@ const FavoritesPage = ({ allSongs, favoritesList, playlists, removeSongFromFavor
 
 
     return (
-        <div className={classes.songs}>
-            <h2 className={classes.allSongsTitle}>המועדפים שלי</h2>
-            <List>
-                {favoritesSongsList.map((song, index) => (
-                    <ListItem key={index} className={classes.song}>
-                        <div className={classes.items}>
-                            <ListItemIcon>
-                                <PlayArrowIcon className={classes.playIcon}></PlayArrowIcon>
-                            </ListItemIcon>
-                            <ListItemText>{song.name} - {song.artist}</ListItemText>
-                        </div>
-                        <div className={classes.items}>
-                            <ListItemIcon>
-                                <AddButtonPage playlists={playlists} currentSong={song} addSongToPlaylist={addSongToPlaylist} />
-                            </ListItemIcon>
-                            <ListItemIcon>
-                                <IconButton onClick={() => removeSongFromFavorites(song.id)}>
-                                    <FavoriteIcon className={classes.favorite} />
-                                </IconButton>
-                            </ListItemIcon>
-                        </div>
-                    </ListItem>
-                ))}
-            </List>
+        <div>
+            <h2 className={classes.favoritesTitle}>המועדפים שלי</h2>
+            <SongsList allSongs={favoritesSongsList} favoritesList={favoritesList} playlists={playlists}
+                addSongToFavorites={addSongToFavorites} removeSongFromFavorites={removeSongFromFavorites}
+                addSongToPlaylist={addSongToPlaylist} setCurrentSong={setCurrentSong} />
         </div>
     );
 }

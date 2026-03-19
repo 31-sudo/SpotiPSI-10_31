@@ -19,9 +19,6 @@ const useStyles = makeStyles()(() => ({
             backgroundColor: '#c27fdc',
             borderRadius: '5px'
         }
-    },
-    favoritesTitle: {
-        padding: '25px'
     }
 }));
 

@@ -3,7 +3,6 @@ import Page from './components/Page/Page';
 import SongsFetch from './components/SongsFetch/SongsFetch';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import type { Song } from './data/song';
-import { CrueltyFree } from '@mui/icons-material';
 
 const App: React.FC = () => {
   const [currentSong, setCurrentSong] = useState<Song | undefined>();
